@@ -7,11 +7,11 @@ IONAME  = [p '/../testdata/io/ioFoo.xml'];
 OUTNAME = [p '/../testdata/foo.las'];
 TIDEVAL = 0;
 
-%% Add subfolders to path
+%% Add subfolders to MATLAB path
 addpath(genpath(p));
 
 %% Run Script
-[Sfmcorr, pc] = sfmrefract(PCNAME,EONAME,IONAME,TIDEVAL,'constsf',[]);
+[Sfmcorr, pc] = sfmrefract(PCNAME,EONAME,IONAME,TIDEVAL,'constsf',[],'ior',1.34);
 
 %% Save Data
 LASwrite(pc,OUTNAME,'version', 12);

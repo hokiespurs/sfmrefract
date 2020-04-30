@@ -1,10 +1,10 @@
-function [Sfmcorr,pc] = sfmrefract(pcname,eoname,ioname,tideval,varargin)
+function [Sfmcorr,pc] = sfmrefract(pcdata,eoname,ioname,tideval,varargin)
 % SFMREFRACT applies refraction correction to pointcloud data
 %   Uses the Dietrich algorithm, or optionally a constant scalar depth
 %   correction 
 %
 % Required Inputs:
-%	- pcname    : pointcloud filename
+%	- pcdata    : pointcloud filename or [Nx3] xyz data
 %	- eoname    : Exterior Orientation trajectory filename
 %	- ioname    : Interior Orientation trajectory filename
 %	- tideval   : Z tideval/filename of mesh
@@ -44,20 +44,24 @@ function [Sfmcorr,pc] = sfmrefract(pcname,eoname,ioname,tideval,varargin)
 % Github        : https://github.com/hokiespurs/sfmrefract
 
 %% Function Call
-[pcname,eoname,ioname,tideval,constsf,ior] = parseInputs(pcname,eoname,ioname,tideval,varargin{:});
+[pcdata,eoname,ioname,tideval,constsf,ior] = parseInputs(pcdata,eoname,ioname,tideval,varargin{:});
 
 %% Read Data
-try
-    pc     = LASread(pcname);
-catch
-    error('Couldnt load LAS file');
+if ~isnumeric(pcdata)
+    try
+        pc     = LASread(pcdata);
+        xyz = [pc.record.x pc.record.y pc.record.z];
+    catch
+        error('Couldnt load LAS file');
+    end
+else
+    xyz = pcdata;
 end
 
 traj   = readtrajectory(eoname);
 sensor = readsensor(ioname);
 
 %% Organize Data
-xyz = [pc.record.x pc.record.y pc.record.z];
 npoints  = size(xyz,1);
 ncameras = numel(traj.name);
 
@@ -73,7 +77,7 @@ if ~isempty(constsf)
     pointclass(h_corr>0)=8;
 else
     
-    zNew  = nan(size(pc.record.x));
+    zNew  = nan(npoints,1);
     ncams = nan(npoints,1);
     
     %% FOR Loop through every point
@@ -142,7 +146,7 @@ pc.record.intensity         = uint16(Sfmcorr.ratiocorr *10000);
 
 end
 
-function [pcname,eoname,ioname,tideval,constsf,ior] = parseInputs(pcname,eoname,ioname,tideval,varargin)
+function [pcdata,eoname,ioname,tideval,constsf,ior] = parseInputs(pcdata,eoname,ioname,tideval,varargin)
 %%	 Call this function to parse the inputs
 
 % Default Values
@@ -150,7 +154,7 @@ default_constsf  = [];
 default_ior      = 1.33;
 
 % Check Values
-check_pcname   = @(x) true;
+check_pcdata   = @(x) true;
 check_eoname   = @(x) true;
 check_ioname   = @(x) true;
 check_tideval  = @(x) true;
@@ -160,7 +164,7 @@ check_ior      = @(x) true;
 % Parser Values
 p = inputParser;
 % Required Arguments:
-addRequired(p, 'pcname'  , check_pcname  );
+addRequired(p, 'pcdata'  , check_pcdata  );
 addRequired(p, 'eoname'  , check_eoname  );
 addRequired(p, 'ioname'  , check_ioname  );
 addRequired(p, 'tideval' , check_tideval );
@@ -169,9 +173,9 @@ addParameter(p, 'constsf' , default_constsf, check_constsf );
 addParameter(p, 'ior'     , default_ior    , check_ior     );
 
 % Parse
-parse(p,pcname,eoname,ioname,tideval,varargin{:});
+parse(p,pcdata,eoname,ioname,tideval,varargin{:});
 % Convert to variables
-pcname  = p.Results.('pcname');
+pcdata  = p.Results.('pcdata');
 eoname  = p.Results.('eoname');
 ioname  = p.Results.('ioname');
 tideval = p.Results.('tideval');
