@@ -1,0 +1,6 @@
+See Dietrich's implementation here:
+https://geojames.github.io/py_sfm_depth/
+
+Cite Dietrich(2017) Here:
+Dietrich JT. 2017. Bathymetric Structure-from-Motion: extracting shallow stream bathymetry from multi-view stereo photogrammetry. Earth Surface Processes and Landforms 42 : 355–364. DOI: 10.1002/esp.4060
+
