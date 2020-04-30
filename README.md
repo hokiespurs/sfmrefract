@@ -10,23 +10,24 @@ Python implementation and more documentation on the algorithm from Dietrich here
 
 NOAA Technical Memorandum on using SfM for bathymetric coastal mapping:
 > https://coastalscience.noaa.gov/data_reports/guidelines-for-bathymetric-mapping-and-orthoimage-generation-using-suas-and-sfm-an-approach-for-conducting-nearshore-coastal-mapping/
+
 ## Quick Start with Agisoft Metashape
 1. Process SfM project and export:
-  a. pointcoud in LAS format (File -> Export Points)
-  b. camera interior orientation (Tools -> Camera Calibration -> Adjusted Tab -> Save icon > \*.xml (Agisoft Camera Calibration)
-  c. camera exterior orientation (File -> Export Cameras -> \*.txt (omega phi kappa)
+   * pointcoud in LAS format (File -> Export Points)
+   * camera interior orientation (Tools -> Camera Calibration -> Adjusted Tab -> Save icon > \*.xml (Agisoft Camera Calibration)
+   * camera exterior orientation (File -> Export Cameras -> \*.txt (omega phi kappa)
 2. Estimate the mean water elevation using one of the following methods:
-  a. Tide gauge
-  b. visually by clicking points along shoreline
+   * Tide gauge
+   * visually by clicking points along shoreline
 3. Modify `runsfmrefract.m`
-  a. update the pointcloud, io, and eo files
-  b. modify the ior, and input the mean water elevation (ensure the correct vertical datum)
+   * update the pointcloud, io, and eo files
+   * modify the ior, and input the mean water elevation (ensure the correct vertical datum)
 4. Run the script.
 
 ## SfM for Bathymetry Considerations
 SfM and UAS provide an inexpensive, low cost method to acquire bathymetric data over clear, calm water.  There are many parameters which should be considered in order to maximize the probability of the generated data being accurate.  For example: Low seafloor texture, low quality UAS GNSS, large waves, whitecaps, water turbidity, sensor noise, and more can all independently reduce the SfM accuracy to a point where the final data is inaccurate. This algorithm assumes the commercial SfM software was able to generate an accurate pointcloud.  Often times with SfM, you can get a pointcloud that "looks" good, but is actually very inaccurate.  This algorithm can not fix bad data, it can only make good data better.
 
-More detailed suggestions can be found at the link provided in a NOAA Technical Memorandum: [Guidelines for Bathymetric Mapping and Orthoimage Generation using sUAS and SfM, An Approach for Conducting Nearshore Coastal Mapping](https://coastalscience.noaa.gov/data_reports/guidelines-for-bathymetric-mapping-and-orthoimage-generation-using-suas-and-sfm-an-approach-for-conducting-nearshore-coastal-mapping/)
+More detailed suggestions can be found at the link provided in a [NOAA Technical Memorandum(2019)](https://coastalscience.noaa.gov/data_reports/guidelines-for-bathymetric-mapping-and-orthoimage-generation-using-suas-and-sfm-an-approach-for-conducting-nearshore-coastal-mapping/)
 
 ## Performance
 The algorithm is currently very slow, which was ok for my applications.  There are however, a few ways to speed it up:
