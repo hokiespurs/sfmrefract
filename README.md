@@ -3,7 +3,7 @@ Matlab implementation of Dietrich(2017) to account for refraction in Structure f
 
 ## References
 Algorithm implemented is from:
-> Dietrich JT. 2017. Bathymetric Structure-from-Motion: extracting shallow stream bathymetry from multi-view stereo photogrammetry. Earth Surface Processes and Landforms 42 : 355–364. DOI: 10.1002/esp.4060
+> [Dietrich JT. 2017. Bathymetric Structure-from-Motion: extracting shallow stream bathymetry from multi-view stereo photogrammetry. Earth Surface Processes and Landforms 42 : 355–364. DOI: 10.1002/esp.4060](https://onlinelibrary.wiley.com/doi/abs/10.1002/esp.4060)
 
 Python implementation and more documentation on the algorithm from Dietrich here:
 > https://geojames.github.io/py_sfm_depth/
