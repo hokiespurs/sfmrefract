@@ -5,9 +5,11 @@ Matlab implementation of Dietrich(2017) to account for refraction in Structure f
 Algorithm implemented is from:
 > Dietrich JT. 2017. Bathymetric Structure-from-Motion: extracting shallow stream bathymetry from multi-view stereo photogrammetry. Earth Surface Processes and Landforms 42 : 355–364. DOI: 10.1002/esp.4060
 
-Python implementation and more documentation on the algorithm here:
+Python implementation and more documentation on the algorithm from Dietrich here:
 > https://geojames.github.io/py_sfm_depth/
 
+NOAA Technical Memorandum on using SfM for bathymetric coastal mapping:
+> https://coastalscience.noaa.gov/data_reports/guidelines-for-bathymetric-mapping-and-orthoimage-generation-using-suas-and-sfm-an-approach-for-conducting-nearshore-coastal-mapping/
 ## Quick Start with Agisoft Metashape
 1. Process SfM project and export:
   a. pointcoud in LAS format (File -> Export Points)
