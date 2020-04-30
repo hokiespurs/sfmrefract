@@ -1,11 +1,14 @@
 %% RUNSFMREFRACT
 %% CONSTANTS 
 p = fileparts(mfilename('fullpath'));
-PCNAME  = [p '/../testdata/points/pc_1e0_PYRAMID.las'];
+PCNAME  = [p '/../testdata/points/pc_1e4_PYRAMID.las'];
 EONAME  = [p '/../testdata/eo/eo_003_nadiryawlock_opk.txt'];
 IONAME  = [p '/../testdata/io/ioFoo.xml'];
 OUTNAME = [p '/../testdata/foo.las'];
 TIDEVAL = 0;
+
+%% Add subfolders to path
+addpath(genpath(p));
 
 %% Run Script
 [Sfmcorr, pc] = sfmrefract(PCNAME,EONAME,IONAME,TIDEVAL,'constsf',[]);
